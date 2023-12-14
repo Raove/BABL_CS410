@@ -80,7 +80,7 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
         optimizer.zero_grad()
-        # print(labels.cpu())  # Display the labels for each batch
+        print(labels.cpu(), "Current time elapsed:", time.time() - start_time, end='\r')  # Display the labels for each batch
         # print("Current time elapsed:", time.time() - start_time)
 
 end_time = time.time()  # Record the end time
@@ -115,7 +115,7 @@ with torch.no_grad():
 
         test_predictions.extend(predictions.tolist())
         test_true_labels.extend(labels.tolist())
-        # print(labels.cpu())  # Display the labels for each batch
+        print(labels.cpu(), "Current time elapsed:", time.time() - start_time, end='\r')  # Display the labels for each batch
         # print("Current time elapsed:", time.time() - start_time)
 
 end_time = time.time()  # Record the end time

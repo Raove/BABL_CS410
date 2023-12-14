@@ -1,14 +1,16 @@
+# Import necessary libraries
 from transformers import BertTokenizer, BertForSequenceClassification, AdamW
 import torch
 from torch.utils.data import DataLoader, Dataset
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 
-# Load the dataset from CSV
+# Load the dataset from CSV using pandas
 import pandas as pd
 
+# Replace 'archive/Tweets.csv' with the actual path to your CSV file
 df = pd.read_csv('archive/Tweets.csv')
-df.head()
+df.head()  # Display the first few rows of the dataset
 
 # Split the dataset into training and testing sets
 train_df, test_df = train_test_split(df, test_size=0.2, random_state=42)
@@ -59,7 +61,7 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
         optimizer.zero_grad()
-        print(labels.cpu())
+        print(labels.cpu())  # Display the labels for each batch
 print('Finished Fine-tuning.\n')
 
 # Evaluate the model on the testing set
@@ -78,7 +80,7 @@ with torch.no_grad():
 
         test_predictions.extend(predictions.tolist())
         test_true_labels.extend(labels.tolist())
-        print(labels.cpu())
+        print(labels.cpu())  # Display the labels for each batch
 print('Finished Predictions.\n')
 
 # Print evaluation metrics

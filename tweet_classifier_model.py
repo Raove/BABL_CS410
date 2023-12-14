@@ -46,15 +46,28 @@ test_dataloader = DataLoader(test_dataset, batch_size=4, shuffle=False)
 
 # Fine-tuning parameters
 optimizer = AdamW(model.parameters(), lr=5e-5)
-num_epochs = 3
+num_epochs = 1
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
 
 # Fine-tune the model
 print('Fine-tuning BERT on tweets... Starting Epochs\n')
 for epoch in range(num_epochs):
     model.train()
     for batch in train_dataloader:
-        inputs = tokenizer(batch['text'], return_tensors='pt', padding=True, truncation=True)
+        # Filter out NaN values from 'batch['text']'
+        texts = [text for text in batch['text'] if pd.notna(text)]
+
+        if not texts:
+            # Skip empty batches
+            continue
+
+        print('Texts in the batch:', batch['text'])  # Display the texts in each batch
+        inputs = tokenizer(texts, return_tensors='pt', padding=True, truncation=True)
         labels = torch.tensor(batch['label'])
+        inputs.to(device)
+        labels.to(device)
 
         outputs = model(**inputs, labels=labels)
         loss = outputs.loss
@@ -72,8 +85,17 @@ test_true_labels = []
 print('Evaluating BERT on tweets... Starting Predictions\n')
 with torch.no_grad():
     for batch in test_dataloader:
-        inputs = tokenizer(batch['text'], return_tensors='pt', padding=True, truncation=True)
+        # Filter out NaN values from 'batch['text']'
+        texts = [text for text in batch['text'] if pd.notna(text)]
+
+        if not texts:
+            # Skip empty batches
+            continue
+
+        inputs = tokenizer(texts, return_tensors='pt', padding=True, truncation=True)
         labels = torch.tensor(batch['label'])
+        inputs.to(device)
+        labels.to(device)
 
         outputs = model(**inputs)
         predictions = torch.argmax(outputs.logits, dim=1)

@@ -57,7 +57,7 @@ model.to(device)
 # Fine-tune the model with time logging
 print('Fine-tuning BERT on tweets... Starting Epochs\n')
 start_time = time.time()  # Record the start time
-print("Start time:", start_time)
+# print("Start time:", start_time)
 for epoch in range(num_epochs):
     model.train()
     for batch in train_dataloader:
@@ -69,7 +69,7 @@ for epoch in range(num_epochs):
             print("Empty batch skipped")
             continue
 
-        print('Texts in the batch:', batch['text'])  # Display the texts in each batch
+        # print('Texts in the batch:', batch['text'])  # Display the texts in each batch
         inputs = tokenizer(texts, return_tensors='pt', padding=True, truncation=True)
         labels = torch.tensor(batch['label'])
         inputs.to(device)
@@ -80,12 +80,12 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
         optimizer.zero_grad()
-        print(labels.cpu())  # Display the labels for each batch
-        print("Current time elapsed:", time.time() - start_time)
+        # print(labels.cpu())  # Display the labels for each batch
+        # print("Current time elapsed:", time.time() - start_time)
 
 end_time = time.time()  # Record the end time
 elapsed_time = end_time - start_time  # Calculate the elapsed time
-print(f'Finished Fine-tuning. Elapsed Time: {elapsed_time} seconds\n')
+print(f'Finished Fine-tuning. Elapsed Time: {elapsed_time/60} minutes and {elapsed_time%60} seconds\n')
 
 # Evaluate the model on the testing set with time logging
 model.eval()
@@ -94,7 +94,7 @@ test_true_labels = []
 
 print('Evaluating BERT on tweets... Starting Predictions\n')
 start_time = time.time()  # Record the start time
-print("Start time:", start_time)
+# print("Start time:", start_time)
 with torch.no_grad():
     for batch in test_dataloader:
         # Filter out NaN values from 'batch['text']'
@@ -115,12 +115,12 @@ with torch.no_grad():
 
         test_predictions.extend(predictions.tolist())
         test_true_labels.extend(labels.tolist())
-        print(labels.cpu())  # Display the labels for each batch
-        print("Current time elapsed:", time.time() - start_time)
+        # print(labels.cpu())  # Display the labels for each batch
+        # print("Current time elapsed:", time.time() - start_time)
 
 end_time = time.time()  # Record the end time
 elapsed_time = end_time - start_time  # Calculate the elapsed time
-print(f'Finished Predictions. Elapsed Time: {elapsed_time} seconds\n')
+print(f'Finished Predictions. Elapsed Time: {elapsed_time/60} minutes and {elapsed_time%60} seconds\n')
 
 # Print evaluation metrics
 accuracy = accuracy_score(test_true_labels, test_predictions)

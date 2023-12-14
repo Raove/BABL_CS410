@@ -30,7 +30,10 @@ class TweetDataset(Dataset):
         return len(self.tweets)
 
     def __getitem__(self, idx):
-        return {'text': self.tweets[idx], 'label': self.labels[idx]}
+        text = str(self.tweets[idx])  # Ensure the text is a string
+        label = self.labels[idx]
+
+        return {'text': text, 'label': label}
 
 # Tokenize and create DataLoader for training set
 train_tweets = train_df['selected_text'].tolist()

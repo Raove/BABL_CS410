@@ -1,9 +1,9 @@
-# Import necessary libraries
 from transformers import BertTokenizer, BertForSequenceClassification, AdamW
 import torch
 from torch.utils.data import DataLoader, Dataset
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
+import time
 
 # Load the dataset from CSV using pandas
 import pandas as pd
@@ -51,8 +51,10 @@ num_epochs = 1
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
-# Fine-tune the model
+# Fine-tune the model with time logging
 print('Fine-tuning BERT on tweets... Starting Epochs\n')
+start_time = time.time()  # Record the start time
+print("Start time:", start_time)
 for epoch in range(num_epochs):
     model.train()
     for batch in train_dataloader:
@@ -61,6 +63,7 @@ for epoch in range(num_epochs):
 
         if not texts:
             # Skip empty batches
+            print("Empty batch skipped")
             continue
 
         print('Texts in the batch:', batch['text'])  # Display the texts in each batch
@@ -75,14 +78,20 @@ for epoch in range(num_epochs):
         optimizer.step()
         optimizer.zero_grad()
         print(labels.cpu())  # Display the labels for each batch
-print('Finished Fine-tuning.\n')
+        print("Current time elapsed:", time.time() - start_time)
 
-# Evaluate the model on the testing set
+end_time = time.time()  # Record the end time
+elapsed_time = end_time - start_time  # Calculate the elapsed time
+print(f'Finished Fine-tuning. Elapsed Time: {elapsed_time} seconds\n')
+
+# Evaluate the model on the testing set with time logging
 model.eval()
 test_predictions = []
 test_true_labels = []
 
 print('Evaluating BERT on tweets... Starting Predictions\n')
+start_time = time.time()  # Record the start time
+print("Start time:", start_time)
 with torch.no_grad():
     for batch in test_dataloader:
         # Filter out NaN values from 'batch['text']'
@@ -90,6 +99,7 @@ with torch.no_grad():
 
         if not texts:
             # Skip empty batches
+            print("Empty batch skipped")
             continue
 
         inputs = tokenizer(texts, return_tensors='pt', padding=True, truncation=True)
@@ -103,7 +113,11 @@ with torch.no_grad():
         test_predictions.extend(predictions.tolist())
         test_true_labels.extend(labels.tolist())
         print(labels.cpu())  # Display the labels for each batch
-print('Finished Predictions.\n')
+        print("Current time elapsed:", time.time() - start_time)
+
+end_time = time.time()  # Record the end time
+elapsed_time = end_time - start_time  # Calculate the elapsed time
+print(f'Finished Predictions. Elapsed Time: {elapsed_time} seconds\n')
 
 # Print evaluation metrics
 accuracy = accuracy_score(test_true_labels, test_predictions)

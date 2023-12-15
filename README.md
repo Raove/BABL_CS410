@@ -23,4 +23,4 @@ So we are training our model with the dataset and testing it with the same datas
 | I`d have responded, if I were going | I`d have responded, if I were going | neutral |
 | 2am feedings for the baby are fun when he is all smiles and coos | fun | positive |
 
-So the plan is to train the model the selected text to decipher the tweets sentiments, then after the model has been trained, we will test our model with the text from the tweets and compare them to the actual sentiment to find out the model's accuracy. This is where we were going to have our leaderboard competition on LiveDataLab, but we were unable to obtain credentials from staff to perform these tasks.
+So the plan is to train the model the selected text to decipher the tweets sentiments, then after the model has been trained, we will test our model with the text from the tweets and compare them to the actual sentiment to find out the model's accuracy and score. This is where we were going to have our leaderboard competition on LiveDataLab, but we were unable to obtain credentials from staff to perform these tasks.

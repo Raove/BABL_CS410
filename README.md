@@ -2,7 +2,7 @@
 
 Our goal is to train a model on a dataset of tweets that are labeled as either negative, neutral, or positive. Depending on the context of the text, the sentiment will be classified as one of the 3 options. We originally had planned to make a leaderboard competition, but due to complications with staff we were unable to obtain LiveDataLab to perform these competitions. Instead we will just develop the model and provide the sentiment of tweets we analyzed and trained our model on.
 
-### [Click me for video](link) (not yet implemented)
+### [Click me for video](https://drive.google.com/file/d/1KMEMokQWhzdSIaEsEW94WgDUUzUXkIWW/view?usp=sharing)
 
 ### Project set up
 

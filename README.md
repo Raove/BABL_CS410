@@ -4,6 +4,7 @@ Our goal is to train a model on a dataset of tweets that are labeled as either n
 
 ### [Click me for video](https://drive.google.com/file/d/1KMEMokQWhzdSIaEsEW94WgDUUzUXkIWW/view?usp=sharing)
 
+### [Click me for documentation and final report](https://github.com/Raove/BABL_CS410/blob/main/Documentation%20and%20Final%20Report.pdf)
 ### Project set up
 
 For you to be able to run this project you will need to have completed MP3.2 as this is a similar process to that. You will need the following installed.

@@ -2,9 +2,9 @@
 
 Our goal is to train a model on a dataset of tweets that are labeled as either negative, neutral, or positive. Depending on the context of the text, the sentiment will be classified as one of the 3 options. We originally had planned to make a leaderboard competition, but due to complications with staff we were unable to obtain LiveDataLab to perform these competitions. Instead we will just develop the model and provide the sentiment of tweets we analyzed and trained our model on.
 
-### [Click me for video](https://drive.google.com/file/d/1KMEMokQWhzdSIaEsEW94WgDUUzUXkIWW/view?usp=sharing)
+### | [Video](https://drive.google.com/file/d/1KMEMokQWhzdSIaEsEW94WgDUUzUXkIWW/view?usp=sharing) | [Documentation and Final Report](https://github.com/Raove/BABL_CS410/blob/main/Documentation%20and%20Final%20Report.pdf) | [Code](https://github.com/Raove/BABL_CS410/blob/main/tweet_classifier_model.py) |
 
-### [Click me for documentation and final report](https://github.com/Raove/BABL_CS410/blob/main/Documentation%20and%20Final%20Report.pdf)
+
 ### Project set up
 
 For you to be able to run this project you will need to have completed MP3.2 as this is a similar process to that. You will need the following installed.
